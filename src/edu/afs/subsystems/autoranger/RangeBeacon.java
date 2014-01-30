@@ -52,6 +52,14 @@ public class RangeBeacon {
             m_greenTimer.cancel(); //Terminate the timer thread
         }
     }
+    
+    public void SetAtShotRangeIndicator(boolean atShotRange){
+        if(atShotRange== true){
+            //TODO: GREEN-ON
+        } else {
+            //TODO: GREEN-OFF
+        }
+    }
      
     public void setRangeBeaconState (RangeBeaconState state){
         if(state.equals(RangeBeaconState.AUTO_RANGE_DISABLED)){
