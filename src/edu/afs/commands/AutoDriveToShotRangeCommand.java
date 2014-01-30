@@ -22,6 +22,7 @@ import edu.afs.subsystems.autoranger.*;
 public class AutoDriveToShotRangeCommand extends CommandBase {
 
     private static final double DESIRED_RANGE = 120.0; // Range in inches.
+    private static final double RANGE_TOLERANCE = 12.0; // In inches.
     private static final double STOP = 0.0;
 
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -32,7 +33,7 @@ public class AutoDriveToShotRangeCommand extends CommandBase {
     // to be positioned closer to shot range before this command is engaged.
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     
-    public static long DRIVE_SAFETY_TIMEOUT = 2500; //Time in milliseconds.
+    protected static long DRIVE_SAFETY_TIMEOUT = 2500; //Time in milliseconds.
     private Timer m_safetyTimer;
     private boolean m_isAutoRangeDone;
 
@@ -106,5 +107,9 @@ public class AutoDriveToShotRangeCommand extends CommandBase {
         m_safetyTimer.cancel();
         autoRanger.disableAutoRanger();
         drive.disableBearingStabilizer();
+    }
+    
+    public static double GetDesiredRange(){
+        return DESIRED_RANGE;
     }
 }
