@@ -6,17 +6,24 @@
 package edu.afs.commands;
 
 import edu.afs.subsystems.drivesubsystem.*;
+import edu.afs.subsystems.autoranger.*;
+import edu.afs.commands.AutoDriveToShotRangeCommand;
 /**
  *
  * @author User
  */
 public class DriveWithJoystickCommand extends CommandBase {
     
+    private static double RANGE_TOLERANCE = 12.0;  // In inches.
+    RangeBeacon m_rangeBeacon;
+    double m_desiredRange;
     
     public DriveWithJoystickCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(drive); // reserve the chassis subsystem
+        m_rangeBeacon = RangeBeacon.getInstance();
+        m_desiredRange = AutoDriveToShotRangeCommand.GetDesiredRange();
     }
 
     // Called just before this Command runs the first time
@@ -26,6 +33,15 @@ public class DriveWithJoystickCommand extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        // Check the range to target.
+        double range = autoRanger.GetRange();
+        double absError = Math.abs(m_desiredRange - range);
+        if(absError <= RANGE_TOLERANCE){
+            // At shooting range - set beaon indicator.
+            m_rangeBeacon.SetAtShotRangeIndicator(true);
+        } else {
+            m_rangeBeacon.SetAtShotRangeIndicator(false);
+        }
         drive.driveWithJoystick();
     }
 
