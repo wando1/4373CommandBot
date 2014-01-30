@@ -54,6 +54,8 @@ public class AutoDriveToShotRangeCommand extends CommandBase {
     class SafetyTimerTask extends TimerTask {
         public void run() {
             m_isAutoRangeDone = true;
+            System.out.println("AutoDriveToShotRangeCommand::SafetyTimerTask" +
+                               "expired.");
             m_safetyTimer.cancel(); //Terminate the timer thread
         }
     }
@@ -99,6 +101,7 @@ public class AutoDriveToShotRangeCommand extends CommandBase {
     // subsystems is scheduled to run
     protected void interrupted() {
         // Manual joystick input will override auto mode.
+        System.out.println("AutoDriveToShotRangeCommand interrupted.");
         drive.driveStraightGyroStabilized(STOP);
         m_safetyTimer.cancel();
         autoRanger.disableAutoRanger();
