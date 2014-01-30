@@ -120,4 +120,10 @@ public class AutoRangerPIDSubsystem extends PIDSubsystem {
         // Use output to drive your system.
         m_autoRangeOutput = output;
     }
+    
+    public double GetRange(){
+        //TODO: Verify return is range in TBD units.
+        return (m_ultraSonicRanger.getAverageVoltage()/
+                MAX_ULTRASONIC_RANGER_VOLTAGE);   
+    }
 }
