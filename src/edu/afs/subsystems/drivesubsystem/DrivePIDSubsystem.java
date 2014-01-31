@@ -76,7 +76,12 @@ public class DrivePIDSubsystem extends PIDSubsystem {
         setDefaultCommand(new DriveWithJoystickCommand());
     }
     
-    public void driveWithJoystick() {
+    public void driveWithJoystick(boolean invertDrivingDirection) {
+        // Invert the sense of the joystick controls to drive with the launcher
+        // in front of the forklift in front.
+        m_drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, invertDrivingDirection);
+        m_drive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, invertDrivingDirection);
+   
         m_drive.arcadeDrive(OI.getInstance().getJoystick());
     }
     
