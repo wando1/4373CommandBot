@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.afs.commands.CommandBase;
+import edu.afs.commands.DriveAndShootCommandGroup;
 
 
 
@@ -35,7 +36,7 @@ public class Robot4373 extends IterativeRobot {
      */
     public void robotInit() {
         // instantiate the command used for the autonomous period
-        //autonomousCommand = new ExampleCommand();
+        autonomousCommand = new DriveAndShootCommandGroup();
 
         // Initialize all subsystems
         CommandBase.init();
