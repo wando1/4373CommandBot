@@ -6,6 +6,8 @@
 
 package edu.afs.subsystems.autoranger;
 
+import edu.afs.robot.RobotMap;
+import edu.wpi.first.wpilibj.DigitalOutput;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -29,6 +31,10 @@ public class RangeBeacon {
     
     public static long GREEN_INDICATOR_TIMEOUT = 5000; //Time in milliseconds.
     private Timer m_greenTimer;
+    private DigitalOutput m_redLight;
+    private DigitalOutput m_yellowLight;
+    private DigitalOutput m_greenLight;
+    
     
     
     // Implement Singleton design pattern.  There 
@@ -42,41 +48,55 @@ public class RangeBeacon {
     }
    // Constructor is private to enforce Singelton.
     private RangeBeacon(){
-        //TODO: Initialize the outputs - RED ON, YELLOW, GREEN - OFF
+        
         Timer m_greenTimer = new Timer();
+       
+        m_redLight = new DigitalOutput(RobotMap.RANGE_BEACON_RED_CHANNEL);
+        m_yellowLight = new DigitalOutput(RobotMap.RANGE_BEACON_YELLOW_CHANNEL);
+        m_greenLight = new DigitalOutput(RobotMap.RANGE_BEACON_GREEN_CHANNEL);
+        
+        // Initialize the outputs - RED ON, YELLOW, GREEN - OFF
+        m_redLight.set(true);
+        m_yellowLight.set(false);
+        m_greenLight.set(false);
     }
     
     class GreenTimerTask extends TimerTask {
         public void run() {
-            //TODO: GREEN-OFF.
+            // Set GREEN-OFF.
+            m_greenLight.set(false);
             m_greenTimer.cancel(); //Terminate the timer thread
         }
     }
     
     public void SetAtShotRangeIndicator(boolean atShotRange){
         if(atShotRange== true){
-            //TODO: GREEN-ON
+            // Set GREEN-ON
+            m_greenLight.set(true);
         } else {
-            //TODO: GREEN-OFF
+            // Set GREEN-OFF
+            m_greenLight.set(false);
         }
     }
      
     public void setRangeBeaconState (RangeBeaconState state){
         if(state.equals(RangeBeaconState.AUTO_RANGE_DISABLED)){
-            //TODO: Set outputs:
-            //RED - ON
-            //YELLOW - OFF
+            // Set RED - ON
+            m_redLight.set(true);
+            // Set YELLOW - OFF
+            m_yellowLight.set(false);
         } else if (state.equals(RangeBeaconState.AUTO_RANGE_ENABLED)){
-            //TODO: Set outputs:
-            //RED - OFF
-            //YELLOW - ON
-            //GREEN - OFF
+            // Set RED - OFF
+            m_redLight.set(false);
+            // Set YELLOW - ON
+            m_yellowLight.set(true);
+            // Set GREEN - OFF
+            m_greenLight.set(false);
         } else { // state.equals(RangeBeaconState.AUTO_RANGE_COMPLETE)
-            //TODO: Set outputs:
-            //GREEN - ON for five seconds.
-            m_greenTimer.schedule(new GreenTimerTask(), GREEN_INDICATOR_TIMEOUT);
-            
-            
+            // Set GREEN - ON for five seconds.
+            m_greenLight.set(true);
+            m_greenTimer.schedule(new GreenTimerTask(), 
+                                  GREEN_INDICATOR_TIMEOUT);
         } 
     }
     

@@ -32,6 +32,11 @@ public class RobotMap {
     // Auto-Ranger Subsystem
     // Analog Breakout
     public static final int ULTRASONIC_RANGER_CHANNEL = 2;
+    
+    // Digital Sidecar GPIO outputs
+    public static final int RANGE_BEACON_RED_CHANNEL = 1;
+    public static final int RANGE_BEACON_YELLOW_CHANNEL = 2;
+    public static final int RANGE_BEACON_GREEN_CHANNEL = 3;
 ////////////////////////////////////////////////////////////////////////////////
     
     // Launcher Subsystem
@@ -39,8 +44,8 @@ public class RobotMap {
     public static final int LAUNCHER_LEFT_MOTOR_CHANNEL = 5;
     public static final int LAUNCHER_RIGHT_MOTOR_CHANNEL = 6;
     // Digital Sidecar GPIO Inputs
-    public static final int LAUNCHER_ENCODER_A_CHANNEL = 1;
-    public static final int LAUNCHER_ENCODER_B_CHANNEL = 2;
+    public static final int LAUNCHER_ENCODER_A_CHANNEL = 4;
+    public static final int LAUNCHER_ENCODER_B_CHANNEL = 5;
     public static final int LAUNCHER_ENCODER_MODULE = 1;
 //////////////////////////////////////////////////////////////////////////////// 
     
@@ -49,11 +54,11 @@ public class RobotMap {
     public static final int CLAMPER_MOTOR_CHANNEL = 7;
     public static final int FORKLIFT_MOTOR_CHANNEL = 8;
     // Digital Sidecar GPIO Inputs
-    public static final int CLAMPER_ENCODER_A_CHANNEL = 3;
-    public static final int CLAMPER_ENCODER_B_CHANNEL = 4;
+    public static final int CLAMPER_ENCODER_A_CHANNEL = 6;
+    public static final int CLAMPER_ENCODER_B_CHANNEL = 7;
     public static final int CLAMPER_ENCODER_MODULE = 2;
-    public static final int FORKLIFT_ENCODER_A_CHANNEL = 5;
-    public static final int FORKLIFT_ENCODER_B_CHANNEL = 6;
+    public static final int FORKLIFT_ENCODER_A_CHANNEL = 8;
+    public static final int FORKLIFT_ENCODER_B_CHANNEL = 9;
     public static final int FORKLIFT_ENCODER_MODULE = 3;
 ////////////////////////////////////////////////////////////////////////////////
     
