@@ -13,12 +13,16 @@ package edu.afs.commands;
  */
 public class FireLauncherCommand extends CommandBase {
     
+    // Cycle must complete within timeout.
+    private static double COMMAND_TIMEOUT = 5; // In seconds.
+    
     // True when first half of launch/reset cylce is compete.
     private boolean m_wasLauncherFired;
     
     public FireLauncherCommand() {
         m_wasLauncherFired = false;
         requires(launcher);
+        this.setTimeout(COMMAND_TIMEOUT);
     }
 
     // Called just before this Command runs the first time
