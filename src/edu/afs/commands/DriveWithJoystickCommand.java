@@ -17,6 +17,7 @@ public class DriveWithJoystickCommand extends CommandBase {
     private static double RANGE_TOLERANCE = 12.0;  // In inches.
     RangeBeacon m_rangeBeacon;
     double m_desiredRange;
+    boolean m_driveControlsInverted;
     
     public DriveWithJoystickCommand() {
         // Use requires() here to declare subsystem dependencies
@@ -24,6 +25,7 @@ public class DriveWithJoystickCommand extends CommandBase {
         requires(drive); // reserve the chassis subsystem
         m_rangeBeacon = RangeBeacon.getInstance();
         m_desiredRange = AutoDriveToShotRangeCommand.GetDesiredRange();
+        m_driveControlsInverted = false;
     }
 
     // Called just before this Command runs the first time
@@ -42,7 +44,9 @@ public class DriveWithJoystickCommand extends CommandBase {
         } else {
             m_rangeBeacon.SetAtShotRangeIndicator(false);
         }
-        drive.driveWithJoystick();
+        //TODO: Get state of OI input to determine if controls should be set to
+        // drive with forklift or launcher in front.
+        drive.driveWithJoystick(m_driveControlsInverted);
     }
 
     // Make this return true when this Command no longer needs to run execute()
