@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.afs.commands.CommandBase;
 import edu.afs.commands.DriveAndShootCommandGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 
@@ -35,11 +36,16 @@ public class Robot4373 extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-        // instantiate the command used for the autonomous period
+         // Initialize all subsystems
+        CommandBase.init();
+        
+        //initialize all SmartDashboard Widjets
+        SmartDashboard.putBoolean(RobotMap.SMARTDASHBOARD_INVERTED_DRIVE, false);
+
+// instantiate the command used for the autonomous period
         autonomousCommand = new DriveAndShootCommandGroup();
 
-        // Initialize all subsystems
-        CommandBase.init();
+       
     }
 
     public void autonomousInit() {
@@ -60,6 +66,7 @@ public class Robot4373 extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         autonomousCommand.cancel();
+        
     }
 
     /**
@@ -67,6 +74,7 @@ public class Robot4373 extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        
     }
     
     /**

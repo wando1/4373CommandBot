@@ -22,7 +22,7 @@ public class DriveBumpReverseCommand extends CommandBase {
     private boolean m_isBumpDone;
     
     public DriveBumpReverseCommand() {
-        requires(drive);
+        requires(CommandBase.drive);
         Timer m_bumpTimer = new Timer();
         m_isBumpDone = false;
     }

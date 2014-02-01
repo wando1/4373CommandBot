@@ -16,36 +16,44 @@ import java.util.TimerTask;
  */
 public class DriveBumpLeftCommand extends CommandBase {
     
-    private static final int BUMP_TIMEOUT = 50; //Milliseconds
+    private static final int BUMP_TIMEOUT = 500; //Milliseconds
     private static final double BUMP_ROTATE = -0.5;
+    public static final double BUMP_SPEED = 1;
     private Timer m_bumpTimer;
     private boolean m_isBumpDone;
     
     public DriveBumpLeftCommand() {
-        requires(drive);
-        Timer m_bumpTimer = new Timer();
+        requires(CommandBase.drive);
+        m_bumpTimer = new Timer();
         m_isBumpDone = false;
     }
     
         class BumpTimerTask extends TimerTask {
         public void run() {
             m_isBumpDone = true;
-            m_bumpTimer.cancel(); //Terminate the timer thread
+            try{
+                m_bumpTimer.cancel(); //Terminate the timer thread
+            }catch (IllegalStateException ex){
+                System.err.println("Wut");
+            }
         }
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
         m_bumpTimer.schedule(new BumpTimerTask(), BUMP_TIMEOUT);
+        System.out.println("DriveBumpLeftCommand Initialize ran!");
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        drive.driveTurn(BUMP_ROTATE);
+        drive.driveTurn(BUMP_SPEED, BUMP_ROTATE);
+        System.out.println("DriveBumpLeftCommand Execute ran!");
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
+        System.out.println("DriveBumpLeftCommand isFinished ran!");
         return m_isBumpDone;
     }
 

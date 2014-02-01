@@ -8,6 +8,8 @@ package edu.afs.commands;
 import edu.afs.subsystems.drivesubsystem.*;
 import edu.afs.subsystems.autoranger.*;
 import edu.afs.commands.AutoDriveToShotRangeCommand;
+import edu.afs.robot.RobotMap;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  * @author User
@@ -22,7 +24,7 @@ public class DriveWithJoystickCommand extends CommandBase {
     public DriveWithJoystickCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(drive); // reserve the chassis subsystem
+        requires(CommandBase.drive); // reserve the chassis subsystem
         m_rangeBeacon = RangeBeacon.getInstance();
         m_desiredRange = AutoDriveToShotRangeCommand.GetDesiredRange();
         m_driveControlsInverted = false;
@@ -37,15 +39,18 @@ public class DriveWithJoystickCommand extends CommandBase {
     protected void execute() {
         // Check the range to target.
         double range = autoRanger.GetRange();
+        SmartDashboard.putNumber(RobotMap.SMARTDASHBOARD_AUTORANGER_VALUE, range);
         double absError = Math.abs(m_desiredRange - range);
         if(absError <= RANGE_TOLERANCE){
             // At shooting range - set beaon indicator.
             m_rangeBeacon.SetAtShotRangeIndicator(true);
+            SmartDashboard.putBoolean(RobotMap.SMARTDASHBOARD_AUTORANGER_AT_DESIRED_VALUE, true);
         } else {
             m_rangeBeacon.SetAtShotRangeIndicator(false);
+            SmartDashboard.putBoolean(RobotMap.SMARTDASHBOARD_AUTORANGER_AT_DESIRED_VALUE, true);
         }
-        //TODO: Get state of OI input to determine if controls should be set to
-        // drive with forklift or launcher in front.
+        //Whether or not the Controls should be inverted is taken Directyly from the Dashboard, Defaulted to False.
+        m_driveControlsInverted = SmartDashboard.getBoolean(RobotMap.SMARTDASHBOARD_INVERTED_DRIVE);
         drive.driveWithJoystick(m_driveControlsInverted);
     }
 

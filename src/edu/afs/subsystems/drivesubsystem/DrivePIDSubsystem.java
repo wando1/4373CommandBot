@@ -16,6 +16,7 @@ import edu.afs.commands.AutoDriveToShotRangeCommand;
 import edu.afs.commands.DriveWithJoystickCommand;
 import edu.afs.robot.OI;
 import edu.afs.robot.RobotMap;
+import edu.wpi.first.wpilibj.Victor;
 
 /**
  *
@@ -34,8 +35,10 @@ public class DrivePIDSubsystem extends PIDSubsystem {
     public static final double DRIVE_MAX_INPUT = 1.0;
     public static final double DRIVE_MIN_INPUT = -1.0;
     RobotDrive m_drive;
-    Talon m_leftMotors;
-    Talon m_rightMotors;
+    //Talon m_leftMotors;
+    //Talon m_rightMotors;
+    Victor m_leftMotors;
+    Victor m_rightMotors;
     Gyro m_gyro;
     AnalogChannel m_gyroChannel;
     double m_steerAngle;
@@ -58,8 +61,10 @@ public class DrivePIDSubsystem extends PIDSubsystem {
               K_DERIVATIVE);
 
         // Drive set-up.
-        m_leftMotors = new Talon(RobotMap.DRIVE_LEFT_MOTOR_CHANNEL);
-        m_rightMotors = new Talon(RobotMap.DRIVE_RIGHT_MOTOR_CHANNEL);
+        //m_leftMotors = new Talon(RobotMap.DRIVE_LEFT_MOTOR_CHANNEL);
+        //m_rightMotors = new Talon(RobotMap.DRIVE_RIGHT_MOTOR_CHANNEL);
+        m_leftMotors = new Victor(RobotMap.DRIVE_LEFT_MOTOR_CHANNEL);
+        m_rightMotors = new Victor(RobotMap.DRIVE_RIGHT_MOTOR_CHANNEL);
         m_drive = new RobotDrive(m_leftMotors, m_rightMotors);
         m_drive.setSafetyEnabled(false);
         
@@ -79,9 +84,10 @@ public class DrivePIDSubsystem extends PIDSubsystem {
     public void driveWithJoystick(boolean invertDrivingDirection) {
         // Invert the sense of the joystick controls to drive with the launcher
         // in front of the forklift in front.
-        m_drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, invertDrivingDirection);
-        m_drive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, invertDrivingDirection);
-   
+        //m_drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
+        //m_drive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
+        m_drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, invertDrivingDirection);
+        m_drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, invertDrivingDirection);
         m_drive.arcadeDrive(OI.getInstance().getJoystick());
     }
     
@@ -96,10 +102,10 @@ public class DrivePIDSubsystem extends PIDSubsystem {
     
     // Move bot forward or backwards at specified speed.
     // No gyro-stabilization of bearing is used.
-    public void driveTurn (double rotate) {
+    public void driveTurn (double speed, double rotate) {
         // Steer rotation input ranges from 1.0 (max CW) to -1.0
         // (max CCW).
-        m_drive.drive(0.0 ,rotate);
+        m_drive.drive(speed ,rotate);
     }
     
     // Move bot forward or backwards at specified speed.

@@ -31,12 +31,12 @@ public abstract class CommandBase extends Command {
         // which commands extend), subsystems are not guaranteed to be
         // yet. Thus, their requires() statements may grab null pointers. Bad
         // news. Don't move it.
-        oi = OI.getInstance();
+      
         autoRanger = AutoRangerPIDSubsystem.getInstance();
         drive = DrivePIDSubsystem.getInstance();  
         forkLift = ForkLiftPIDSubsystem.getInstance();
         launcher = LauncherSubsystem.getInstance();
-
+        oi = OI.getInstance();
         // Show what command your subsystem is running on the SmartDashboard
         //SmartDashboard.putData(exampleSubsystem);
     }

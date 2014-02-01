@@ -2,8 +2,10 @@
 package edu.afs.robot;
 
 import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.DigitalIOButton;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.afs.commands.DriveBumpLeftCommand;
 
 
 /**
@@ -45,8 +47,9 @@ public class OI {
       
     
     private static OI instance = null;
-    private Joystick stick;
-      
+    private Joystick joystick;
+    private Button bumpLeftButton;
+    
     public static OI getInstance () {
         if (instance == null) {
             instance = new OI();
@@ -55,11 +58,14 @@ public class OI {
     }
     
     public Joystick getJoystick() {
-        return stick;
+        return joystick;
     }
     
     private OI() {
-        stick = new Joystick(RobotMap.JOYSTICK_PORT);
+        joystick = new Joystick(RobotMap.JOYSTICK_PORT);
+        bumpLeftButton = new JoystickButton(joystick, RobotMap.BUMP_LEFT_BUTTON);
+        bumpLeftButton.whenPressed(new DriveBumpLeftCommand());
     }
+    
 }
 

@@ -13,7 +13,7 @@ package edu.afs.commands;
 public class LoadBallCommand extends CommandBase {
     
     public LoadBallCommand() {
-        requires(forkLift);
+        requires(CommandBase.forkLift);
     }
 
     // Called just before this Command runs the first time

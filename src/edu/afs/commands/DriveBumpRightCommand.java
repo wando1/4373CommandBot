@@ -18,11 +18,12 @@ public class DriveBumpRightCommand extends CommandBase {
     
     private static final int BUMP_TIMEOUT = 50; //Milliseconds
     private static final double BUMP_ROTATE = 0.5;
+    private static final double BUMP_SPEED = 1;
     private Timer m_bumpTimer;
     private boolean m_isBumpDone;
     
     public DriveBumpRightCommand() {
-        requires(drive);
+        requires(CommandBase.drive);
         Timer m_bumpTimer = new Timer();
         m_isBumpDone = false;
     }
@@ -41,7 +42,7 @@ public class DriveBumpRightCommand extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        drive.driveTurn(BUMP_ROTATE);
+        drive.driveTurn(BUMP_SPEED, BUMP_ROTATE);
     }
 
     // Make this return true when this Command no longer needs to run execute()

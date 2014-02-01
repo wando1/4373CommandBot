@@ -21,7 +21,7 @@ public class FireLauncherCommand extends CommandBase {
     
     public FireLauncherCommand() {
         m_wasLauncherFired = false;
-        requires(launcher);
+        requires(CommandBase.launcher);
         this.setTimeout(COMMAND_TIMEOUT);
     }
 

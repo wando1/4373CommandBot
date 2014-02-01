@@ -20,13 +20,15 @@ public class RobotMap {
     
     // Drive Subsystem
     // Digital Sidecar PWM outputs
-    public static final int DRIVE_LEFT_MOTOR_CHANNEL = 1;
-    public static final int DRIVE_RIGHT_MOTOR_CHANNEL = 2;
+    public static final int DRIVE_LEFT_MOTOR_CHANNEL = 2;
+    public static final int DRIVE_RIGHT_MOTOR_CHANNEL = 3;
    
     // Analog Breakout
     public static final int GYRO_CHANNEL = 1;
     // Driver Station
     public static final int JOYSTICK_PORT = 1;
+    
+    public static final int BUMP_LEFT_BUTTON = 4;
 ////////////////////////////////////////////////////////////////////////////////
     
     // Auto-Ranger Subsystem
@@ -41,8 +43,8 @@ public class RobotMap {
     
     // Launcher Subsystem
     // Digital Sidecar PWM outputs
-    public static final int LAUNCHER_LEFT_MOTOR_CHANNEL = 5;
-    public static final int LAUNCHER_RIGHT_MOTOR_CHANNEL = 6;
+    public static final int LAUNCHER_LEFT_MOTOR_CHANNEL = 6;
+    public static final int LAUNCHER_RIGHT_MOTOR_CHANNEL = 5;
     // Digital Sidecar GPIO Inputs
     public static final int LAUNCHER_ENCODER_A_CHANNEL = 4;
     public static final int LAUNCHER_ENCODER_B_CHANNEL = 5;
@@ -61,7 +63,10 @@ public class RobotMap {
     public static final int FORKLIFT_ENCODER_B_CHANNEL = 9;
     public static final int FORKLIFT_ENCODER_MODULE = 3;
 ////////////////////////////////////////////////////////////////////////////////
-    
+    // Keys Used for the Smart Dashboard
+    public static final String SMARTDASHBOARD_INVERTED_DRIVE = "Inverted Controls?";
+    public static final String SMARTDASHBOARD_AUTORANGER_VALUE = "AutoRanger Value";
+    public static final String SMARTDASHBOARD_AUTORANGER_AT_DESIRED_VALUE = "In Position?";
 
     
     

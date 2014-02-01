@@ -21,7 +21,7 @@ import edu.afs.subsystems.autoranger.*;
  */
 public class AutoDriveToShotRangeCommand extends CommandBase {
 
-    private static final double DESIRED_RANGE = 120.0; // Range in inches.
+    private static final double DESIRED_RANGE = 24.0; // Range in inches.
     private static final double RANGE_TOLERANCE = 12.0; // In inches.
     private static final double STOP = 0.0;
 
@@ -39,8 +39,8 @@ public class AutoDriveToShotRangeCommand extends CommandBase {
 
     public AutoDriveToShotRangeCommand() {
         // Use requires() here to declare subsystem dependencies
-        requires(drive);
-        requires(autoRanger);
+        requires(CommandBase.drive);
+        requires(CommandBase.autoRanger);
         Timer m_safetyTimer = new Timer();
         m_isAutoRangeDone = false;
     }
