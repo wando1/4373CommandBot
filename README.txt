@@ -6,6 +6,6 @@ TODO:
 	[] Drive
 	[] Catapult
 	[] AutoRanger
-[] Program Autonomous
+[] Program Autonomous ***SEE DriveAndShootCommandGroup***
 [] Finish TODO list
 [] Find all //TODOs in code and do whatever they say
