@@ -5,9 +5,6 @@
  */
 package edu.afs.commands;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import edu.afs.subsystems.autoranger.*;
 /**
  * This command will move the bot straight forward under auto-ranger and
@@ -33,43 +30,24 @@ public class AutoDriveToShotRangeCommand extends CommandBase {
     // to be positioned closer to shot range before this command is engaged.
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     
-    protected static long DRIVE_SAFETY_TIMEOUT = 2500; //Time in milliseconds.
-    private Timer m_safetyTimer;
+    protected static long DRIVE_SAFETY_TIMEOUT = 10; //Time in seconds.
     private boolean m_isAutoRangeDone;
 
     public AutoDriveToShotRangeCommand() {
         // Use requires() here to declare subsystem dependencies
         requires(CommandBase.drive);
         requires(CommandBase.autoRanger);
-        Timer m_safetyTimer = new Timer();
+        setTimeout(DRIVE_SAFETY_TIMEOUT);
         m_isAutoRangeDone = false;
     }
     
-    // Safety timer is intended to stop this command and keep bot from crashing
-    // into a wall if the auto-ranger fails to detect that bot has passed shot
-    // range.  Note that the drive's default command is to move under joystick
-    // control.  Selecting the timeout is tricky. Assuming the auto-ranger wiggs
-    // out, if the timeout is too long, the bot will continue forward until it
-    // hits the wall.  If it is too short, this command will time out before it
-    // can reach shot range (and have to be re-started).
-    class SafetyTimerTask extends TimerTask {
-        public void run() {
-            m_isAutoRangeDone = true;
-            System.out.println("AutoDriveToShotRangeCommand::SafetyTimerTask" +
-                               "expired.");
-            m_safetyTimer.cancel(); //Terminate the timer thread
-        }
-    }
+    
 
     // Called just before this Command runs the first time
     protected void initialize() {
         drive.initBearingStabilizer();
         autoRanger.setSetpoint(DESIRED_RANGE);
         autoRanger.initAutoRanger();
-        // Saftey timer ends command if timeout occurs.
-        // This keeps bot from crashing into wall if auto-ranger fails.
-        m_safetyTimer.schedule(new SafetyTimerTask(), DRIVE_SAFETY_TIMEOUT);
-        
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -85,7 +63,6 @@ public class AutoDriveToShotRangeCommand extends CommandBase {
             RangeBeacon.getInstance().
                     setRangeBeaconState(RangeBeaconState.AUTO_RANGE_COMPLETE);
             // Disable timer.
-            m_safetyTimer.cancel();
         }
         // m_isAutoRangeDone can be set true by Safety Timer timeout.
         return m_isAutoRangeDone;
@@ -104,7 +81,6 @@ public class AutoDriveToShotRangeCommand extends CommandBase {
         // Manual joystick input will override auto mode.
         System.out.println("AutoDriveToShotRangeCommand interrupted.");
         drive.driveStraightGyroStabilized(STOP);
-        m_safetyTimer.cancel();
         autoRanger.disableAutoRanger();
         drive.disableBearingStabilizer();
     }

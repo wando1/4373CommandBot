@@ -26,12 +26,15 @@ public class RobotMap {
     // Analog Breakout
     public static final int GYRO_CHANNEL = 1;
     // Driver Station
-    public static final int JOYSTICK_PORT = 1;
+    public static final int DRIVE_JOYSTICK_PORT = 1;
+    public static final int FORKLIFT_JOYSTICK_PORT = 2;
     //Buttons for Joystick, these numbers are temporary
     public static final int BUMP_LEFT_BUTTON = 4;
     public static final int BUMP_RIGHT_BUTTON = 3;
     public static final int BUMP_FORWARD_BUTTON = 2;
     public static final int BUMP_REVERSE_BUTTON = 1;
+    public static final int JOG_FORKLIFT_UP = 6;
+    public static final int JOG_FORKLIFT_DOWN = 7;
 ////////////////////////////////////////////////////////////////////////////////
     
     // Auto-Ranger Subsystem
@@ -56,12 +59,12 @@ public class RobotMap {
     
     // Forklift Subsystem
     // Digital Sidecar PWM outputs
-    public static final int CLAMPER_MOTOR_CHANNEL = 7;
+    public static final int KICKER_MOTOR_CHANNEL = 7;
     public static final int FORKLIFT_MOTOR_CHANNEL = 8;
     // Digital Sidecar GPIO Inputs
-    public static final int CLAMPER_ENCODER_A_CHANNEL = 6;
-    public static final int CLAMPER_ENCODER_B_CHANNEL = 7;
-    public static final int CLAMPER_ENCODER_MODULE = 2;
+    public static final int KICKER_ENCODER_A_CHANNEL = 6;
+    public static final int KICKER_ENCODER_B_CHANNEL = 7;
+    public static final int KICKER_ENCODER_MODULE = 2;
     public static final int FORKLIFT_ENCODER_A_CHANNEL = 8;
     public static final int FORKLIFT_ENCODER_B_CHANNEL = 9;
     public static final int FORKLIFT_ENCODER_MODULE = 3;

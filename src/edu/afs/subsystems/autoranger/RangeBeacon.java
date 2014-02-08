@@ -30,7 +30,6 @@ public class RangeBeacon {
     // to keep it lit for five seconds after 
     
     public static long GREEN_INDICATOR_TIMEOUT = 5000; //Time in milliseconds.
-    private Timer m_greenTimer;
     private DigitalOutput m_redLight;
     private DigitalOutput m_yellowLight;
     private DigitalOutput m_greenLight;
@@ -48,9 +47,7 @@ public class RangeBeacon {
     }
    // Constructor is private to enforce Singelton.
     private RangeBeacon(){
-        
-        Timer m_greenTimer = new Timer();
-       
+               
         m_redLight = new DigitalOutput(RobotMap.RANGE_BEACON_RED_CHANNEL);
         m_yellowLight = new DigitalOutput(RobotMap.RANGE_BEACON_YELLOW_CHANNEL);
         m_greenLight = new DigitalOutput(RobotMap.RANGE_BEACON_GREEN_CHANNEL);
@@ -65,7 +62,6 @@ public class RangeBeacon {
         public void run() {
             // Set GREEN-OFF.
             m_greenLight.set(false);
-            m_greenTimer.cancel(); //Terminate the timer thread
         }
     }
     
@@ -95,8 +91,6 @@ public class RangeBeacon {
         } else { // state.equals(RangeBeaconState.AUTO_RANGE_COMPLETE)
             // Set GREEN - ON for five seconds.
             m_greenLight.set(true);
-            m_greenTimer.schedule(new GreenTimerTask(), 
-                                  GREEN_INDICATOR_TIMEOUT);
         } 
     }
     

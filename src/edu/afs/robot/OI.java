@@ -9,6 +9,7 @@ import edu.afs.commands.DriveBumpLeftCommand;
 import edu.afs.commands.DriveBumpRightCommand;
 import edu.afs.commands.DriveBumpForwardCommand;
 import edu.afs.commands.DriveBumpReverseCommand;
+import edu.afs.commands.ManualForkliftCommand;
 
 
 /**
@@ -50,11 +51,13 @@ public class OI {
       
     
     private static OI instance = null;
-    private Joystick joystick;
-    private Button bumpLeftButton;
-    private Button bumpRightButton;
-    private Button bumpForwardButton;
-    private Button bumpReverseButton;
+    private Joystick driveJoystick;
+    private JoystickButton bumpLeftButton;
+    private JoystickButton bumpRightButton;
+    private JoystickButton bumpForwardButton;
+    private JoystickButton bumpReverseButton;
+    private JoystickButton jogForkliftUp;
+    private JoystickButton jogForkliftDown;
     
     public static OI getInstance () {
         if (instance == null) {
@@ -63,20 +66,36 @@ public class OI {
         return instance;
     }
     
-    public Joystick getJoystick() {
-        return joystick;
+    public Joystick getDriveJoystick() {
+        return driveJoystick;
+    }
+    
+    public JoystickButton getJogUpButton() {
+        return jogForkliftUp;
+    }
+    
+    public JoystickButton getJogDownButton() {
+        return jogForkliftDown;
+        
     }
     
     private OI() {
-        joystick = new Joystick(RobotMap.JOYSTICK_PORT);
-        bumpLeftButton = new JoystickButton(joystick, RobotMap.BUMP_LEFT_BUTTON);
-        bumpRightButton = new JoystickButton(joystick, RobotMap.BUMP_RIGHT_BUTTON);
-        bumpForwardButton = new JoystickButton(joystick, RobotMap.BUMP_FORWARD_BUTTON);
-        bumpReverseButton = new JoystickButton(joystick, RobotMap.BUMP_REVERSE_BUTTON);
+        driveJoystick = new Joystick(RobotMap.DRIVE_JOYSTICK_PORT);
+        bumpLeftButton = new JoystickButton(driveJoystick, RobotMap.BUMP_LEFT_BUTTON);
+        bumpRightButton = new JoystickButton(driveJoystick, RobotMap.BUMP_RIGHT_BUTTON);
+        bumpForwardButton = new JoystickButton(driveJoystick, RobotMap.BUMP_FORWARD_BUTTON);
+        bumpReverseButton = new JoystickButton(driveJoystick, RobotMap.BUMP_REVERSE_BUTTON);
+        
+        jogForkliftUp = new JoystickButton(driveJoystick, RobotMap.JOG_FORKLIFT_UP);
+        jogForkliftDown = new JoystickButton(driveJoystick, RobotMap.JOG_FORKLIFT_DOWN);
+        
         bumpLeftButton.whenPressed(new DriveBumpLeftCommand());
         bumpRightButton.whenPressed(new DriveBumpRightCommand());
         bumpForwardButton.whenPressed(new DriveBumpForwardCommand());
         bumpReverseButton.whenPressed(new DriveBumpReverseCommand());
+        
+        jogForkliftUp.whileHeld(new ManualForkliftCommand(true));
+        jogForkliftDown.whileHeld(new ManualForkliftCommand(false));
     }
     
 }
