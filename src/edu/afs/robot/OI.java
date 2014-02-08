@@ -6,6 +6,9 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.DigitalIOButton;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.afs.commands.DriveBumpLeftCommand;
+import edu.afs.commands.DriveBumpRightCommand;
+import edu.afs.commands.DriveBumpForwardCommand;
+import edu.afs.commands.DriveBumpReverseCommand;
 
 
 /**
@@ -49,6 +52,9 @@ public class OI {
     private static OI instance = null;
     private Joystick joystick;
     private Button bumpLeftButton;
+    private Button bumpRightButton;
+    private Button bumpForwardButton;
+    private Button bumpReverseButton;
     
     public static OI getInstance () {
         if (instance == null) {
@@ -64,7 +70,13 @@ public class OI {
     private OI() {
         joystick = new Joystick(RobotMap.JOYSTICK_PORT);
         bumpLeftButton = new JoystickButton(joystick, RobotMap.BUMP_LEFT_BUTTON);
+        bumpRightButton = new JoystickButton(joystick, RobotMap.BUMP_RIGHT_BUTTON);
+        bumpForwardButton = new JoystickButton(joystick, RobotMap.BUMP_FORWARD_BUTTON);
+        bumpReverseButton = new JoystickButton(joystick, RobotMap.BUMP_REVERSE_BUTTON);
         bumpLeftButton.whenPressed(new DriveBumpLeftCommand());
+        bumpRightButton.whenPressed(new DriveBumpRightCommand());
+        bumpForwardButton.whenPressed(new DriveBumpForwardCommand());
+        bumpReverseButton.whenPressed(new DriveBumpReverseCommand());
     }
     
 }

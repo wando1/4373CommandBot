@@ -27,8 +27,11 @@ public class RobotMap {
     public static final int GYRO_CHANNEL = 1;
     // Driver Station
     public static final int JOYSTICK_PORT = 1;
-    
+    //Buttons for Joystick, these numbers are temporary
     public static final int BUMP_LEFT_BUTTON = 4;
+    public static final int BUMP_RIGHT_BUTTON = 3;
+    public static final int BUMP_FORWARD_BUTTON = 2;
+    public static final int BUMP_REVERSE_BUTTON = 1;
 ////////////////////////////////////////////////////////////////////////////////
     
     // Auto-Ranger Subsystem
@@ -66,6 +69,7 @@ public class RobotMap {
     // Keys Used for the Smart Dashboard
     public static final String SMARTDASHBOARD_INVERTED_DRIVE = "Inverted Controls?";
     public static final String SMARTDASHBOARD_AUTORANGER_VALUE = "AutoRanger Value";
+    public static final String SMARTDASHBOARD_AUTORANGER_VALUE_INCHES = "AutoRanger Value in Inches";
     public static final String SMARTDASHBOARD_AUTORANGER_AT_DESIRED_VALUE = "In Position?";
 
     

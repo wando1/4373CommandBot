@@ -19,29 +19,16 @@ public class DriveBumpLeftCommand extends CommandBase {
     private static final int BUMP_TIMEOUT = 500; //Milliseconds
     private static final double BUMP_ROTATE = -0.5;
     public static final double BUMP_SPEED = 1;
-    private Timer m_bumpTimer;
     private boolean m_isBumpDone;
     
     public DriveBumpLeftCommand() {
         requires(CommandBase.drive);
-        m_bumpTimer = new Timer();
+        setTimeout(BUMP_TIMEOUT);
         m_isBumpDone = false;
     }
     
-        class BumpTimerTask extends TimerTask {
-        public void run() {
-            m_isBumpDone = true;
-            try{
-                m_bumpTimer.cancel(); //Terminate the timer thread
-            }catch (IllegalStateException ex){
-                System.err.println("Wut");
-            }
-        }
-    }
-
     // Called just before this Command runs the first time
     protected void initialize() {
-        m_bumpTimer.schedule(new BumpTimerTask(), BUMP_TIMEOUT);
         System.out.println("DriveBumpLeftCommand Initialize ran!");
     }
 
@@ -64,5 +51,6 @@ public class DriveBumpLeftCommand extends CommandBase {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+        System.out.println("DriveBumpLeftCommand was interrupted!");
     }
 }

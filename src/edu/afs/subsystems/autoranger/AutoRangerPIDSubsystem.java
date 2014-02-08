@@ -26,6 +26,7 @@ public class AutoRangerPIDSubsystem extends PIDSubsystem {
     private static final double ABSOLUE_RANGER_TOLERANCE = 6.0; // In inches.
     private static final double MAX_ULTRASONIC_RANGER_VOLTAGE = 10.0;
     private static final double MIN_ULTRASONIC_RANGER_VOLTAGE = -10.0;
+    private static final double VOLTS_PER_INCH = 0.009766;
    
     private double m_autoRangeOutput;
     private AnalogChannel m_ultraSonicRanger;
@@ -126,5 +127,9 @@ public class AutoRangerPIDSubsystem extends PIDSubsystem {
         return (m_ultraSonicRanger.getAverageVoltage()
                 ///MAX_ULTRASONIC_RANGER_VOLTAGE
                 );   
+    }
+    
+    public double GetRangeInches(){
+        return (GetRange()/VOLTS_PER_INCH);
     }
 }

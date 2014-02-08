@@ -39,7 +39,9 @@ public class DriveWithJoystickCommand extends CommandBase {
     protected void execute() {
         // Check the range to target.
         double range = autoRanger.GetRange();
+        double rangeInInches = autoRanger.GetRangeInches();
         SmartDashboard.putNumber(RobotMap.SMARTDASHBOARD_AUTORANGER_VALUE, range);
+        SmartDashboard.putNumber(RobotMap.SMARTDASHBOARD_AUTORANGER_VALUE_INCHES, rangeInInches);
         double absError = Math.abs(m_desiredRange - range);
         if(absError <= RANGE_TOLERANCE){
             // At shooting range - set beaon indicator.

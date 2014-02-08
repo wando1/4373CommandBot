@@ -18,25 +18,19 @@ public class DriveBumpReverseCommand extends CommandBase {
     
     private static final int BUMP_TIMEOUT = 50; //Milliseconds
     private static final double BUMP_SPEED = -0.5;
-    private Timer m_bumpTimer;
     private boolean m_isBumpDone;
     
     public DriveBumpReverseCommand() {
         requires(CommandBase.drive);
-        Timer m_bumpTimer = new Timer();
+        setTimeout(BUMP_TIMEOUT);
         m_isBumpDone = false;
     }
     
-        class BumpTimerTask extends TimerTask {
-        public void run() {
-            m_isBumpDone = true;
-            m_bumpTimer.cancel(); //Terminate the timer thread
-        }
-    }
+      
+        
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        m_bumpTimer.schedule(new BumpTimerTask(), BUMP_TIMEOUT);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -55,5 +49,6 @@ public class DriveBumpReverseCommand extends CommandBase {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+        System.out.println("DriveBumpReverseCommand was interrupted!");
     }
 }
