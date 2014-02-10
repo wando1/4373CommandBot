@@ -65,7 +65,7 @@ public class DrivePIDSubsystem extends PIDSubsystem {
         m_rightMotors = new Talon(RobotMap.DRIVE_RIGHT_MOTOR_CHANNEL);
         m_drive = new RobotDrive(m_leftMotors, m_rightMotors);
         m_drive.setSafetyEnabled(false);
-        
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHHHH! I'M DYING!!!! HELP HELPHELP!!!!!!\n\n\n\n");
         // Gyro stabilization set-up.
         m_gyroChannel = new AnalogChannel (RobotMap.GYRO_CHANNEL);
         m_gyro = new Gyro(m_gyroChannel); 

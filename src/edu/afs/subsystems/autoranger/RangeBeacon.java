@@ -40,6 +40,7 @@ public class RangeBeacon {
     // can be only one instance of this class.
     private static RangeBeacon instance = null;  
     public static RangeBeacon getInstance () {
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHHHH! I'M DYING!!!! HELP HELPHELP!!!!!!\n\n\n\n");
         if (instance == null) {
             instance = new RangeBeacon();
         }

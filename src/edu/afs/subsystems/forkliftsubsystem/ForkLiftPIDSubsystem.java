@@ -36,6 +36,7 @@ public class ForkLiftPIDSubsystem extends PIDSubsystem {
     static ForkLiftPIDSubsystem instance = null;
       
     public static ForkLiftPIDSubsystem getInstance () {
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHHHH! I'M DYING!!!! HELP HELPHELP!!!!!!\n\n\n\n");
         if (instance == null) {
             instance = new ForkLiftPIDSubsystem();
         }
@@ -94,6 +95,7 @@ public class ForkLiftPIDSubsystem extends PIDSubsystem {
     }
     
     public int getForkliftPosition(){
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHHHH! I'M DYING!!!! HELP HELPHELP!!!!!!\n\n\n\n");
         return 0;
     }
     
