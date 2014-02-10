@@ -33,8 +33,8 @@ public class RobotMap {
     public static final int BUMP_RIGHT_BUTTON = 3;
     public static final int BUMP_FORWARD_BUTTON = 2;
     public static final int BUMP_REVERSE_BUTTON = 1;
-    public static final int JOG_FORKLIFT_UP = 6;
-    public static final int JOG_FORKLIFT_DOWN = 7;
+    public static final int JOG_FORKLIFT_UP = 11;
+    public static final int JOG_FORKLIFT_DOWN = 10;
 ////////////////////////////////////////////////////////////////////////////////
     
     // Auto-Ranger Subsystem
