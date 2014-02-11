@@ -16,18 +16,15 @@ import java.util.TimerTask;
  */
 public class DriveBumpReverseCommand extends CommandBase {
     
-    private static final int BUMP_TIMEOUT = 50; //Milliseconds
+    private static final double BUMP_TIMEOUT = 0.2; // Seconds
     private static final double BUMP_SPEED = -0.5;
-    private boolean m_isBumpDone;
+ 
     
     public DriveBumpReverseCommand() {
         requires(CommandBase.drive);
         setTimeout(BUMP_TIMEOUT);
-        m_isBumpDone = false;
     }
     
-      
-        
 
     // Called just before this Command runs the first time
     protected void initialize() {
@@ -40,15 +37,17 @@ public class DriveBumpReverseCommand extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return m_isBumpDone;
+        return isTimedOut();
     }
     // Called once after isFinished returns true
     protected void end() {
+        drive.driveStraight(0.0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
         System.out.println("DriveBumpReverseCommand was interrupted!");
+        drive.driveStraight(0.0);
     }
 }

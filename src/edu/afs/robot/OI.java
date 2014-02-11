@@ -94,8 +94,8 @@ public class OI {
         bumpForwardButton.whenPressed(new DriveBumpForwardCommand());
         bumpReverseButton.whenPressed(new DriveBumpReverseCommand());
         
-        jogForkliftUp.whileHeld(new ManualForkliftCommand(true));
-        jogForkliftDown.whileHeld(new ManualForkliftCommand(false));
+        //jogForkliftUp.whileHeld(new ManualForkliftCommand(true));
+        //jogForkliftDown.whileHeld(new ManualForkliftCommand(false));
     }
     
 }

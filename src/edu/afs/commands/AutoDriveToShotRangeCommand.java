@@ -30,7 +30,7 @@ public class AutoDriveToShotRangeCommand extends CommandBase {
     // to be positioned closer to shot range before this command is engaged.
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     
-    protected static long DRIVE_SAFETY_TIMEOUT = 10; //Time in seconds.
+    protected static double DRIVE_SAFETY_TIMEOUT = 5.0; //Time in seconds.
     private boolean m_isAutoRangeDone;
 
     public AutoDriveToShotRangeCommand() {
@@ -62,9 +62,10 @@ public class AutoDriveToShotRangeCommand extends CommandBase {
             //Turn on the green indicator.
             RangeBeacon.getInstance().
                     setRangeBeaconState(RangeBeaconState.AUTO_RANGE_COMPLETE);
-            // Disable timer.
+        }else if (isTimedOut()== true){
+            m_isAutoRangeDone = true;
         }
-        // m_isAutoRangeDone can be set true by Safety Timer timeout.
+        // m_isAutoRangeDone can be set true by timeout.
         return m_isAutoRangeDone;
     }
 

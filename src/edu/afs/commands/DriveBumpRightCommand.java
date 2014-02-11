@@ -16,15 +16,14 @@ import java.util.TimerTask;
  */
 public class DriveBumpRightCommand extends CommandBase {
     
-    private static final int BUMP_TIMEOUT = 50; //Milliseconds
+    private static final double BUMP_TIMEOUT = 0.2; // Seconds
     private static final double BUMP_ROTATE = 0.5;
-    private static final double BUMP_SPEED = 1;
+    private static final double BUMP_SPEED = 0.5;
     private boolean m_isBumpDone;
     
     public DriveBumpRightCommand() {
         requires(CommandBase.drive);
         setTimeout(BUMP_TIMEOUT);
-        m_isBumpDone = false;
     }
     
 
@@ -39,16 +38,18 @@ public class DriveBumpRightCommand extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return m_isBumpDone;
+        return isTimedOut();
     }
 
     // Called once after isFinished returns true
     protected void end() {
+        drive.driveTurn(0.0, 0.0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
         System.out.println("DriveBumpRightCommmand was interrupted!");
+        drive.driveTurn(0.0, 0.0);
     }
 }
