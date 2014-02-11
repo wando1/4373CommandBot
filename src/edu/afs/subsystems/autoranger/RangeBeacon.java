@@ -21,19 +21,16 @@ import java.util.TimerTask;
 
 public class RangeBeacon {
        
-    // Set up three analog outputs to drive red, yellow, and green lights
+    // Set up three digital outputs to drive red, yellow, and green lights
     // mounted on the bot.
     //
     // Red - auto-ranging is disabled.
     // Yellow - auto-ranging is in progress.  Bot moving to shooting range.
-    // Green - bot at shooting range.  The green indicator is latched by a timer 
-    // to keep it lit for five seconds after 
+    // Green - bot at shooting range.  
     
-    public static long GREEN_INDICATOR_TIMEOUT = 5000; //Time in milliseconds.
     private DigitalOutput m_redLight;
     private DigitalOutput m_yellowLight;
     private DigitalOutput m_greenLight;
-    
     
     
     // Implement Singleton design pattern.  There 
@@ -58,13 +55,7 @@ public class RangeBeacon {
         m_greenLight.set(false);
     }
     
-    class GreenTimerTask extends TimerTask {
-        public void run() {
-            // Set GREEN-OFF.
-            m_greenLight.set(false);
-        }
-    }
-    
+ 
     public void SetAtShotRangeIndicator(boolean atShotRange){
         if(atShotRange== true){
             // Set GREEN-ON
@@ -89,7 +80,7 @@ public class RangeBeacon {
             // Set GREEN - OFF
             m_greenLight.set(false);
         } else { // state.equals(RangeBeaconState.AUTO_RANGE_COMPLETE)
-            // Set GREEN - ON for five seconds.
+            // Set GREEN - ON 
             m_greenLight.set(true);
         } 
     }
