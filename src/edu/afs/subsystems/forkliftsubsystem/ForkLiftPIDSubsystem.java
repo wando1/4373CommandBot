@@ -9,8 +9,8 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.AnalogChannel;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.afs.robot.RobotMap;
-
 /**
  *
  * @author User
@@ -36,7 +36,6 @@ public class ForkLiftPIDSubsystem extends PIDSubsystem {
     static ForkLiftPIDSubsystem instance = null;
       
     public static ForkLiftPIDSubsystem getInstance () {
-        //System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHHHH! I'M DYING!!!! HELP HELPHELP!!!!!!\n\n\n\n");
         if (instance == null) {
             instance = new ForkLiftPIDSubsystem();
         }
@@ -79,7 +78,7 @@ public class ForkLiftPIDSubsystem extends PIDSubsystem {
     }
     
     public void jogForkliftUdp(){
-        if (enabled == true){
+        if (SmartDashboard.getBoolean(RobotMap.SMARTDASHBOARD_DISABLED_FORKLIFT) == true){
         m_forkliftMotor.set(DEFAULT_FORKLIFT_SPEED);
         }
         else{
@@ -88,7 +87,7 @@ public class ForkLiftPIDSubsystem extends PIDSubsystem {
     }
     
     public void jogForkliftDown(){
-        if (enabled == true){
+        if (SmartDashboard.getBoolean(RobotMap.SMARTDASHBOARD_DISABLED_FORKLIFT) == true){
         m_forkliftMotor.set(-1.0*DEFAULT_FORKLIFT_SPEED);
         }
         else{
@@ -97,7 +96,7 @@ public class ForkLiftPIDSubsystem extends PIDSubsystem {
     }
     
     public void jogKickerUp(){
-        if (enabled == true){
+        if (SmartDashboard.getBoolean(RobotMap.SMARTDASHBOARD_DISABLED_FORKLIFT) == true){
         m_kickerMotor.set(DEFAULT_KICKER_SPEED);
         }
         else{
@@ -107,7 +106,7 @@ public class ForkLiftPIDSubsystem extends PIDSubsystem {
     }
     
     public void jogKickerDown(){
-        if (enabled == true){
+        if (SmartDashboard.getBoolean(RobotMap.SMARTDASHBOARD_DISABLED_FORKLIFT) == true){
         m_kickerMotor.set(-1.0*DEFAULT_KICKER_SPEED);
         }
         else{
@@ -117,7 +116,6 @@ public class ForkLiftPIDSubsystem extends PIDSubsystem {
     }
     
     public int getForkliftPosition(){
-        //System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHHHH! I'M DYING!!!! HELP HELPHELP!!!!!!\n\n\n\n");
         return 0;
     }
     
