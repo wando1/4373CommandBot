@@ -27,7 +27,7 @@ public class RobotMap {
     public static final int GYRO_CHANNEL = 1;
     // Driver Station
     public static final int DRIVE_JOYSTICK_PORT = 1;
-    public static final int FORKLIFT_JOYSTICK_PORT = 2;
+    //public static final int FORKLIFT_JOYSTICK_PORT = 2;
     //Buttons for Joystick, these numbers are temporary
     public static final int BUMP_LEFT_BUTTON = 4;
     public static final int BUMP_RIGHT_BUTTON = 3;

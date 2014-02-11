@@ -35,22 +35,25 @@ public class DriveBumpLeftCommand extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
         drive.driveTurn(BUMP_SPEED, BUMP_ROTATE);
-        System.out.println("DriveBumpLeftCommand Execute ran!");
+        //System.out.println("DriveBumpLeftCommand Execute ran!");
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        System.out.println("DriveBumpLeftCommand isFinished ran!");
+        //System.out.println("DriveBumpLeftCommand isFinished ran!");
         return m_isBumpDone;
     }
 
     // Called once after isFinished returns true
     protected void end() {
+        System.out.println("DriveBumpLeftCommand.end() called");
+        drive.driveStraight(0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
         System.out.println("DriveBumpLeftCommand was interrupted!");
+        drive.driveStraight(0);
     }
 }

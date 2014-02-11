@@ -50,9 +50,9 @@ public class LauncherSubsystem extends Subsystem {
         
         m_leftMotor = new Victor(RobotMap.LAUNCHER_LEFT_MOTOR_CHANNEL);
         m_rightMotor = new Victor(RobotMap.LAUNCHER_RIGHT_MOTOR_CHANNEL);
-        m_launcherEncoder = new Encoder(RobotMap.LAUNCHER_ENCODER_MODULE,
+        m_launcherEncoder = new Encoder(//RobotMap.LAUNCHER_ENCODER_MODULE,
                                         RobotMap.LAUNCHER_ENCODER_A_CHANNEL,
-                                        RobotMap.LAUNCHER_ENCODER_MODULE,
+                                        //RobotMap.LAUNCHER_ENCODER_MODULE,
                                         RobotMap.LAUNCHER_ENCODER_B_CHANNEL,
                                         false);
         
