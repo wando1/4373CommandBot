@@ -23,7 +23,7 @@ public class ForkLiftPIDSubsystem extends PIDSubsystem {
     private static final double Kd = 0.0;
     private static final double DEFAULT_FORKLIFT_SPEED = 0.5;
     private static final double DEFAULT_KICKER_SPEED = 0.5;
-    private static
+    private boolean enabled = true;
     Victor m_forkliftMotor;
     Victor m_kickerMotor;
     AnalogChannel m_forkliftEncoderA;
@@ -79,19 +79,41 @@ public class ForkLiftPIDSubsystem extends PIDSubsystem {
     }
     
     public void jogForkliftUdp(){
+        if (enabled == true){
         m_forkliftMotor.set(DEFAULT_FORKLIFT_SPEED);
+        }
+        else{
+            System.out.println("Forklift is Disabled, please enable in order to use forklift");
+        }
     }
     
     public void jogForkliftDown(){
+        if (enabled == true){
         m_forkliftMotor.set(-1.0*DEFAULT_FORKLIFT_SPEED);
+        }
+        else{
+            System.out.println("Forklift is Disabled, please enable in order to use forklift");
+        }
     }
     
     public void jogKickerUp(){
+        if (enabled == true){
         m_kickerMotor.set(DEFAULT_KICKER_SPEED);
+        }
+        else{
+            System.out.println("Forklift is Disabled, please enable in order to use forklift");
+        
+        }
     }
     
     public void jogKickerDown(){
+        if (enabled == true){
         m_kickerMotor.set(-1.0*DEFAULT_KICKER_SPEED);
+        }
+        else{
+            System.out.println("Forklift is Disabled, please enable in order to use forklift");
+            
+        }
     }
     
     public int getForkliftPosition(){
@@ -102,4 +124,9 @@ public class ForkLiftPIDSubsystem extends PIDSubsystem {
     public int getKickerPosition(){
         return 0;
     }
+    
+    public boolean getEnabled(){
+        return enabled;
+    }
 }
+

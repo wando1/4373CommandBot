@@ -20,6 +20,7 @@ public class ManualForkliftCommand extends CommandBase {
     private Button m_upButton;
     private Button m_downButton;
     private boolean m_direction;
+    private ForkLiftPIDSubsystem forklift;
     
     public ManualForkliftCommand(boolean direction) {
         // Use requires() here to declare subsystem dependencies
@@ -38,8 +39,9 @@ public class ManualForkliftCommand extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        SmartDashboard.putBoolean("Forklift Disabled?", forklift.getEnabled());
         if (m_direction == true){
-            //make the Forklift go up
+            //make Forklift go up
         }
         else {
             //make Forklift go down
