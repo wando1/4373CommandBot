@@ -5,8 +5,9 @@
  */
 package edu.afs.commands;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import edu.afs.robot.RobotMap;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 
 /**
  * Make the robot "bump" backward a small amount for button-controlled fine
@@ -18,11 +19,14 @@ public class DriveBumpReverseCommand extends CommandBase {
     
     private static final double BUMP_TIMEOUT = 0.2; // Seconds
     private static final double BUMP_SPEED = -0.5;
+    private static final double STOP = 0.0;
+    boolean m_driveControlsInverted;
  
     
     public DriveBumpReverseCommand() {
         requires(CommandBase.drive);
         setTimeout(BUMP_TIMEOUT);
+        m_driveControlsInverted = false;
     }
     
 
@@ -32,7 +36,8 @@ public class DriveBumpReverseCommand extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        drive.driveStraight(BUMP_SPEED);
+        m_driveControlsInverted = SmartDashboard.getBoolean(RobotMap.SMARTDASHBOARD_INVERTED_DRIVE);
+        drive.driveStraight(BUMP_SPEED, m_driveControlsInverted);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -41,13 +46,13 @@ public class DriveBumpReverseCommand extends CommandBase {
     }
     // Called once after isFinished returns true
     protected void end() {
-        drive.driveStraight(0.0);
+        drive.driveStraight(STOP, m_driveControlsInverted);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
         System.out.println("DriveBumpReverseCommand was interrupted!");
-        drive.driveStraight(0.0);
+        drive.driveStraight(STOP, m_driveControlsInverted);
     }
 }

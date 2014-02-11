@@ -91,29 +91,32 @@ public class DrivePIDSubsystem extends PIDSubsystem {
     
     // Move bot forward or backwards at specified speed.
     // No gyro-stabilization of bearing is used.
-    public void driveStraight (double speed) {
-        // TODO: Do any speed value translation here.
-        // Speed input ranges from 1.0 (max forward) to -1.0
-        // (max reverse). 
+    public void driveStraight (double speed, boolean invertDrivingDirection) {
+        m_drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, invertDrivingDirection);
+        m_drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, invertDrivingDirection);
         m_drive.drive(speed, STRAIGHT_AHEAD_ROTATION_VALUE);
     }
     
     // Move bot forward or backwards at specified speed.
     // No gyro-stabilization of bearing is used.
-    public void driveTurn (double speed, double rotate) {
+    public void driveTurn (double speed, double rotate, boolean invertDrivingDirection) {
         // Steer rotation input ranges from 1.0 (max CW) to -1.0
         // (max CCW).
+        m_drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, invertDrivingDirection);
+        m_drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, invertDrivingDirection);
         m_drive.drive(speed ,rotate);
     }
     
     // Move bot forward or backwards at specified speed.
     // Bearing is gyro-stabilized.
-    public void driveStraightGyroStabilized (double speed) {
+    public void driveStraightGyroStabilized (double speed, boolean invertDrivingDirection) {
         // TODO: Do any speed value and steer angle translation here.
         // m_steerAngle is set by PID Controller.
         // Speed input ranges from 1.0 (max forward) to -1.0
         // (max reverse).  Steer angle input ranges from 1.0 (max CW) to -1.0
         // (max CCW).
+        m_drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, invertDrivingDirection);
+        m_drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, invertDrivingDirection);
         m_drive.drive(speed, m_steerAngle);
     }
     

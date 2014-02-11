@@ -51,7 +51,7 @@ public class DriveWithJoystickCommand extends CommandBase {
             m_rangeBeacon.SetAtShotRangeIndicator(false);
             SmartDashboard.putBoolean(RobotMap.SMARTDASHBOARD_AUTORANGER_AT_DESIRED_VALUE, true);
         }
-        //Whether or not the Controls should be inverted is taken Directyly from the Dashboard, Defaulted to False.
+        //Whether or not the Controls should be inverted is taken Directly from the Dashboard, Defaulted to False.
         m_driveControlsInverted = SmartDashboard.getBoolean(RobotMap.SMARTDASHBOARD_INVERTED_DRIVE);
         drive.driveWithJoystick(m_driveControlsInverted);
     }

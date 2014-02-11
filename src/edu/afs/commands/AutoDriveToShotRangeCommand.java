@@ -5,10 +5,14 @@
  */
 package edu.afs.commands;
 
+import edu.afs.robot.RobotMap;
 import edu.afs.subsystems.autoranger.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  * This command will move the bot straight forward under auto-ranger and
- * bearing stabilizer control.  The command ends under three conditions:
+ * bearing stabilizer control.  NOTE: Shooter-side forward.
+ * 
+ * The command ends under three conditions:
  *
  *  1) The auto-ranger indicates that the bot has reached shot range.
  *  2) The safety timer expires.
@@ -30,8 +34,9 @@ public class AutoDriveToShotRangeCommand extends CommandBase {
     // to be positioned closer to shot range before this command is engaged.
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     
-    protected static double DRIVE_SAFETY_TIMEOUT = 5.0; //Time in seconds.
+    protected static double DRIVE_SAFETY_TIMEOUT = 4.0; //Time in seconds.
     private boolean m_isAutoRangeDone;
+    boolean m_driveControlsInverted;
 
     public AutoDriveToShotRangeCommand() {
         // Use requires() here to declare subsystem dependencies
@@ -39,6 +44,7 @@ public class AutoDriveToShotRangeCommand extends CommandBase {
         requires(CommandBase.autoRanger);
         setTimeout(DRIVE_SAFETY_TIMEOUT);
         m_isAutoRangeDone = false;
+        m_driveControlsInverted = false;
     }
     
     
@@ -52,7 +58,8 @@ public class AutoDriveToShotRangeCommand extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        drive.driveStraightGyroStabilized(autoRanger.getAutoRangerOutput());
+        m_driveControlsInverted = SmartDashboard.getBoolean(RobotMap.SMARTDASHBOARD_INVERTED_DRIVE);
+        drive.driveStraightGyroStabilized(autoRanger.getAutoRangerOutput(), m_driveControlsInverted);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -72,7 +79,7 @@ public class AutoDriveToShotRangeCommand extends CommandBase {
     // Called once after isFinished returns true
     protected void end() {
         autoRanger.disableAutoRanger();
-        drive.driveStraightGyroStabilized(STOP);
+        drive.driveStraightGyroStabilized(STOP, m_driveControlsInverted);
         drive.disableBearingStabilizer();
     }
 
@@ -81,7 +88,7 @@ public class AutoDriveToShotRangeCommand extends CommandBase {
     protected void interrupted() {
         // Manual joystick input will override auto mode.
         System.out.println("AutoDriveToShotRangeCommand interrupted.");
-        drive.driveStraightGyroStabilized(STOP);
+        drive.driveStraightGyroStabilized(STOP, m_driveControlsInverted);
         autoRanger.disableAutoRanger();
         drive.disableBearingStabilizer();
     }

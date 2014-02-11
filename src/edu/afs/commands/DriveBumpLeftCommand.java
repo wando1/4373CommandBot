@@ -5,8 +5,10 @@
  */
 package edu.afs.commands;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import edu.afs.robot.RobotMap;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+
 
 /**
  * Make the robot "bump" left a small amount for button-controlled fine
@@ -19,10 +21,13 @@ public class DriveBumpLeftCommand extends CommandBase {
     private static final double BUMP_TIMEOUT = 0.2; // Seconds
     private static final double BUMP_ROTATE = -0.5;
     public static final double BUMP_SPEED = 1;
+    private static final double STOP = 0.0;
+    private boolean m_driveControlsInverted;
     
     public DriveBumpLeftCommand() {
         requires(CommandBase.drive);
         setTimeout(BUMP_TIMEOUT);
+        m_driveControlsInverted = false;
     }
     
     // Called just before this Command runs the first time
@@ -31,7 +36,8 @@ public class DriveBumpLeftCommand extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        drive.driveTurn(BUMP_SPEED, BUMP_ROTATE);
+        m_driveControlsInverted = SmartDashboard.getBoolean(RobotMap.SMARTDASHBOARD_INVERTED_DRIVE);
+        drive.driveTurn(BUMP_SPEED, BUMP_ROTATE, m_driveControlsInverted);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -47,6 +53,6 @@ public class DriveBumpLeftCommand extends CommandBase {
     // subsystems is scheduled to run
     protected void interrupted() {
         System.out.println("DriveBumpLeftCommand was interrupted!");
-        drive.driveTurn(0.0, 0.0);
+        drive.driveTurn(STOP, STOP, m_driveControlsInverted);
     }
 }

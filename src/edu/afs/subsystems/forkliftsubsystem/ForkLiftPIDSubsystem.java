@@ -47,12 +47,12 @@ public class ForkLiftPIDSubsystem extends PIDSubsystem {
         super("ForkLiftPIDSubsystem", Kp, Ki, Kd);
         m_forkliftMotor = new Victor(RobotMap.FORKLIFT_MOTOR_CHANNEL);
         m_kickerMotor = new Victor(RobotMap.KICKER_MOTOR_CHANNEL);
-        m_kickerEncoder = new Encoder(RobotMap.KICKER_ENCODER_MODULE, 
-                                      RobotMap.KICKER_ENCODER_A_CHANNEL,
-                                      RobotMap.KICKER_ENCODER_B_CHANNEL);
-        m_forkliftEncoder = new Encoder(RobotMap.FORKLIFT_ENCODER_MODULE,
-                                        RobotMap.FORKLIFT_ENCODER_A_CHANNEL,
-                                        RobotMap.FORKLIFT_ENCODER_B_CHANNEL);
+        m_kickerEncoder = new Encoder(RobotMap.KICKER_ENCODER_A_CHANNEL,
+                                      RobotMap.KICKER_ENCODER_B_CHANNEL,
+                                      false);
+        m_forkliftEncoder = new Encoder(RobotMap.FORKLIFT_ENCODER_A_CHANNEL,
+                                        RobotMap.FORKLIFT_ENCODER_B_CHANNEL,
+                                        false);
 
         // Use these to get going:
         // setSetpoint() -  Sets where the PID controller should move the system

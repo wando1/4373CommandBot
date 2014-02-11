@@ -5,8 +5,9 @@
  */
 package edu.afs.commands;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import edu.afs.robot.RobotMap;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 
 /**
  * Make the robot "bump" right a small amount for button-controlled fine
@@ -19,11 +20,13 @@ public class DriveBumpRightCommand extends CommandBase {
     private static final double BUMP_TIMEOUT = 0.2; // Seconds
     private static final double BUMP_ROTATE = 0.5;
     private static final double BUMP_SPEED = 0.5;
-    private boolean m_isBumpDone;
+    private static final double STOP = 0.0;
+    private boolean m_driveControlsInverted;
     
     public DriveBumpRightCommand() {
         requires(CommandBase.drive);
         setTimeout(BUMP_TIMEOUT);
+        m_driveControlsInverted = false;
     }
     
 
@@ -33,7 +36,8 @@ public class DriveBumpRightCommand extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        drive.driveTurn(BUMP_SPEED, BUMP_ROTATE);
+        m_driveControlsInverted = SmartDashboard.getBoolean(RobotMap.SMARTDASHBOARD_INVERTED_DRIVE);
+        drive.driveTurn(BUMP_SPEED, BUMP_ROTATE, m_driveControlsInverted);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -43,13 +47,13 @@ public class DriveBumpRightCommand extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-        drive.driveTurn(0.0, 0.0);
+        drive.driveTurn(STOP, STOP, m_driveControlsInverted);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
         System.out.println("DriveBumpRightCommmand was interrupted!");
-        drive.driveTurn(0.0, 0.0);
+        drive.driveTurn(STOP, STOP, m_driveControlsInverted);
     }
 }
