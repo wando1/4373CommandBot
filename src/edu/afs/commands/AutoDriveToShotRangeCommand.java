@@ -6,7 +6,9 @@
 package edu.afs.commands;
 
 import edu.afs.robot.RobotMap;
+import edu.afs.robot.OI;
 import edu.afs.subsystems.autoranger.*;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  * This command will move the bot straight forward under auto-ranger and
@@ -35,22 +37,27 @@ public class AutoDriveToShotRangeCommand extends CommandBase {
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     
     protected static double DRIVE_SAFETY_TIMEOUT = 4.0; //Time in seconds.
+    private final double THROTTLE_TOLERANCE = 0.1;
     private boolean m_isAutoRangeDone;
-    boolean m_driveControlsInverted;
+    private boolean m_driveControlsInverted;
+    private Joystick joyStick;
+    double initThrottleSetting;
 
     public AutoDriveToShotRangeCommand() {
         // Use requires() here to declare subsystem dependencies
         requires(CommandBase.drive);
         requires(CommandBase.autoRanger);
         setTimeout(DRIVE_SAFETY_TIMEOUT);
+        joyStick = OI.getInstance().getDriveJoystick();
         m_isAutoRangeDone = false;
         m_driveControlsInverted = false;
     }
-    
-    
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        // Throttle setting from -1.0 to 1.0.  Get initial value for 
+        // comparison.
+        initThrottleSetting = joyStick.getThrottle();
         drive.initBearingStabilizer();
         autoRanger.setSetpoint(DESIRED_RANGE);
         autoRanger.initAutoRanger();
@@ -58,6 +65,13 @@ public class AutoDriveToShotRangeCommand extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        // See if user moved the joystick.  If so, abort the command.
+        double currentThrottleSetting = joyStick.getThrottle();
+        if (Math.abs(currentThrottleSetting - initThrottleSetting) 
+                <= THROTTLE_TOLERANCE){
+            // Go back to manual drive control.  Kill this command.
+            this.cancel();
+        }
         m_driveControlsInverted = SmartDashboard.getBoolean(RobotMap.SMARTDASHBOARD_INVERTED_DRIVE);
         drive.driveStraightGyroStabilized(autoRanger.getAutoRangerOutput(), m_driveControlsInverted);
     }
