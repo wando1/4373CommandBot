@@ -46,11 +46,13 @@ public class DriveBumpLeftCommand extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
+        drive.driveStraight(0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
         System.out.println("DriveBumpLeftCommand was interrupted!");
+        drive.driveStraight(0);
     }
 }

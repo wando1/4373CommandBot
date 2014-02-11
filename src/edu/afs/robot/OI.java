@@ -81,7 +81,7 @@ public class OI {
     
     private OI() {
         driveJoystick = new Joystick(RobotMap.DRIVE_JOYSTICK_PORT);
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHHHH! I'M DYING!!!! HELP HELPHELP!!!!!!\n\n\n\n");
+        //System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHHHH! I'M DYING!!!! HELP HELPHELP!!!!!!\n\n\n\n");
         bumpLeftButton = new JoystickButton(driveJoystick, RobotMap.BUMP_LEFT_BUTTON);
         bumpRightButton = new JoystickButton(driveJoystick, RobotMap.BUMP_RIGHT_BUTTON);
         bumpForwardButton = new JoystickButton(driveJoystick, RobotMap.BUMP_FORWARD_BUTTON);
@@ -95,8 +95,8 @@ public class OI {
         bumpForwardButton.whenPressed(new DriveBumpForwardCommand());
         bumpReverseButton.whenPressed(new DriveBumpReverseCommand());
         
-        jogForkliftUp.whileHeld(new ManualForkliftCommand(true));
-        jogForkliftDown.whileHeld(new ManualForkliftCommand(false));
+        //jogForkliftUp.whileHeld(new ManualForkliftCommand(true));
+        //jogForkliftDown.whileHeld(new ManualForkliftCommand(false));
     }
     
 }
